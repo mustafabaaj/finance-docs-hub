@@ -4,7 +4,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
- 
+    "start:dev": "npx nodemon",
+    "build": "rimraf ./build && tsc",
+    "start": "npm run build && nodemon build/server.js"
   },
   "keywords": [],
   "author": "",
