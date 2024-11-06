@@ -1,0 +1,18 @@
+.header {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #333;
+  border-bottom: 2px solid #fff;
+  border-radius: 9px 9px 0 0;
+}
+
+.headerTitle {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  margin: 0;
+  text-align: center;
+}
