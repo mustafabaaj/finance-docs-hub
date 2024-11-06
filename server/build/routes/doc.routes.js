@@ -1,8 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var express = require('express');
-var google_controller_1 = require("../controllers/google.controller");
-var googleFetchsRouter = express.Router();
-googleFetchsRouter.get('/', google_controller_1.getGoogleAuthLink);
-googleFetchsRouter.get('/api/sessions/oauth/google', google_controller_1.processEmails);
+const express = require('express');
+const google_controller_1 = require("../controllers/google.controller");
+const googleFetchsRouter = express.Router();
+googleFetchsRouter.get('/googleAuth', google_controller_1.getGoogleAuthLink);
+googleFetchsRouter.get('/api/sessions/oauth/google', google_controller_1.googleAuth);
+googleFetchsRouter.get('/api/user/profile', google_controller_1.getUser);
+googleFetchsRouter.get('/api/user/labels', google_controller_1.getLabels);
+googleFetchsRouter.post('/api/logout', google_controller_1.logOutUser);
 module.exports = googleFetchsRouter;
