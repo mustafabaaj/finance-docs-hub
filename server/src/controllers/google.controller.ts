@@ -3,6 +3,8 @@ import { auth } from '../googleOauth';
 import { google } from 'googleapis';
 const { readEmails } = require('../emailUtils/email-operations');
 const processXlsxFiles = require('../excelUtils/excelCombiner');
+const now = new Date();
+const currentDate = now.toISOString().split('T')[0];
 
 const scopes = [
   'openid',
@@ -60,8 +62,8 @@ export async function googleAuth(req: any, res: any) {
 }
 
 export async function getUser(req: any, res: any) {
+  const accessToken = req.cookies.access_token;
   try {
-    const accessToken = req.cookies.access_token;
     if (!accessToken) {
       return res.status(401).send('Unauthorized');
     }
@@ -116,10 +118,52 @@ export async function getLabels(req: any, res: any) {
     });
   }
 }
+
+export async function getDesfasuratoareWithLabel(req: any, res: any) {
+  try {
+    if (!auth) {
+      return res
+        .status(400)
+        .json({ message: 'Authentication failed. Please log in again.' });
+    }
+    await readEmails(auth);
+
+    res
+      .status(200)
+      .json({ message: 'Download process completed successfully.' });
+  } catch (error) {
+    console.error('An error occurred:', error);
+
+    if (error === 'Authentication failed. Please log in again.') {
+      res.status(400).json({ message: error });
+    } else if (error === 'File processing failed. Please try again later.') {
+      res.status(500).json({ message: error });
+    } else {
+      res.status(500).json({
+        message: 'An unexpected error occurred. Please try again later.',
+      });
+    }
+  }
+}
+
+export async function handleMergeDocuments(req: any, res: any) {
+  try {
+    const filePath = await processXlsxFiles();
+    console.log(filePath);
+    res
+      .status(200)
+      .json({ message: 'Merging process completed successfully.' });
+  } catch (error) {
+    res.status(500).send('An error occurred during file processing');
+  }
+}
+
 module.exports = {
   getGoogleAuthLink,
   googleAuth,
   getUser,
   logOutUser,
   getLabels,
+  getDesfasuratoareWithLabel,
+  handleMergeDocuments,
 };
