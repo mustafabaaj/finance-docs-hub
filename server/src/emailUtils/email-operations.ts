@@ -61,7 +61,7 @@ async function getEmail(emailId: any, gmail: any) {
     for (const part of parts) {
       if (part.filename && part.body && part.body.attachmentId) {
         console.log(`Found attachment: ${part.filename}`);
-        await getAttachment(auth, emailId, part, gmail); // Use await to wait for the async function
+        await getAttachment(auth, emailId, part, gmail);
       }
     }
   }

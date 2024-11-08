@@ -50,15 +50,6 @@ export async function googleAuth(req: any, res: any) {
     console.error('Error during Google authentication:', err);
     res.status(500).send('Authentication failed');
   }
-
-  // try {
-  //   await readEmails(auth);
-  //   processXlsxFiles();
-  //   res.redirect('/');
-  // } catch (error) {
-  //   console.error('An error occurred:', error);
-  //   res.status(500).send('An error occurred while processing your request.');
-  // }
 }
 
 export async function getUser(req: any, res: any) {
