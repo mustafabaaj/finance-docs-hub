@@ -4,7 +4,7 @@ import { faFileInvoice, faList } from '@fortawesome/free-solid-svg-icons';
 import Button from '../../buttons/button/Button';
 import { useActiveTab } from '../../../contexts/ActiveTabContext';
 
-export function SettingsPanel({ onActiveTab }) {
+export function SettingsPanel() {
   const { setActiveTab } = useActiveTab();
 
   return (
@@ -23,7 +23,7 @@ export function SettingsPanel({ onActiveTab }) {
 
       <Button
         style={{ position: 'absolute', bottom: '50px', left: '50px' }}
-        onClick={() => onActiveTab('userDashboard')}
+        onClick={() => setActiveTab('userDashboard')}
       >
         Back
       </Button>

@@ -16,7 +16,7 @@ export function FacturiPanel() {
         <Button onClick={() => setForm('labels')}>labels</Button>
       </div>
       {form === 'emails' && <EmailList />}
-      {form === 'labels' && <LabelList />}
+      {form === 'labels' && <LabelList panelId='Facturi' />}
       <Button
         style={{ position: 'absolute', bottom: '50px', left: '50px' }}
         onClick={() => setActiveTab('settings')}

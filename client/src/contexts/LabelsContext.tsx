@@ -3,11 +3,16 @@ type Label = {
   id: string;
   name: string;
 };
+
+type PanelLabels = {
+  [panelId: string]: Set<string>;
+};
+
 type SelectedLabelsContextType = {
-  selectedLabels: Set<string>;
-  setSelectedLabels: React.Dispatch<React.SetStateAction<Set<string>>>;
+  selectedLabels: PanelLabels;
+  setSelectedLabels: (panelId: string, labels: Set<string>) => void;
   labels: Label[];
-  setLabels: React.Dispatch<React.SetStateAction<string[]>>;
+  setLabels: React.Dispatch<React.SetStateAction<Label[]>>;
 };
 
 const SelectedLabelsContext = createContext<
@@ -19,8 +24,15 @@ export const SelectedLabelsProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [selectedLabels, setSelectedLabels] = useState<Set<string>>(new Set());
-  const [labels, setLabels] = useState<any[]>([]);
+  const [selectedLabels, setSelectedLabelsState] = useState<PanelLabels>({});
+  const [labels, setLabels] = useState<Label[]>([]);
+
+  const setSelectedLabels = (panelId: string, labels: Set<string>) => {
+    setSelectedLabelsState((prevSelectedLabels) => ({
+      ...prevSelectedLabels,
+      [panelId]: labels,
+    }));
+  };
 
   return (
     <SelectedLabelsContext.Provider

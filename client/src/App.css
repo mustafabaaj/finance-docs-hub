@@ -98,3 +98,10 @@ body {
 .dashboard {
   margin-top: 20px;
 }
+
+.googleBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 200px;
+}
